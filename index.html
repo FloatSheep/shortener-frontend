@@ -1,19 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="minimum-scale=1, initial-scale=1, width=device-width"
-    />
-    <title>Invalid URL!</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>外链中转页面</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        user-select: none;
+        box-sizing: border-box;
+      }
+      :root {
+        --main-site-background: #f7f9fe;
+        --main-card-border: #e3e8f7;
+        --main-card-background: #fff;
+        --main-font-color: #363636;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --main-site-background: #18171d;
+          --main-card-border: #3d3d3f;
+          --main-card-background: #1b1c20;
+          --main-font-color: #f7f7fa;
+        }
+      }
+      a {
+        text-decoration: none;
+        color: var(--main-font-color);
+      }
+      body {
+        background-color: var(--main-site-background);
+        color: var(--main-font-color);
+        font-family: "PingFang SC", "Open Sans", "Microsoft YaHei", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100vw;
+        width: 100dvw;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        transition: color 0.3s, background-color 0.3s;
+      }
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      header .logo img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+        border-radius: 3rem;
+      }
+      header .title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      header .title .site-name {
+        font-size: 30px;
+        font-weight: bold;
+      }
+      header .title .site-tip {
+        font-size: 20px;
+        margin-top: 8px;
+        opacity: 0.6;
+      }
+      main {
+        margin: 30px 20px 60px;
+        border-radius: 16px;
+        padding: 30px;
+        max-width: 768px;
+        min-width: 380px;
+        background-color: var(--main-card-background);
+        border: 1px solid var(--main-card-border);
+      }
+      main .tip {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 3.2rem;
+      }
+      main #url {
+        display: block;
+        padding: 12px 20px;
+        border-radius: 8px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid var(--main-card-border);
+        background-color: var(--main-site-background);
+      }
+      main #site-info {
+        display: inline-flex;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        font-size: 18px;
+      }
+      main #jump-content.warn {
+        color: #ffb02e;
+      }
+      main #jump-content.safe {
+        color: #00d26a;
+      }
+      main #jump-content.danger {
+        color: #f8312f;
+      }
+      main #jump-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        width: 160px;
+        margin: 30px auto 0;
+        border-radius: 8px;
+        color: var(--main-font-color);
+        background-color: var(--main-card-border);
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+      main #jump-button:hover {
+        background-color: var(--main-site-background);
+      }
+      footer {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        margin: 20px;
+        opacity: 0.6;
+        font-size: 15px;
+      }
+      footer .icp::before {
+        content: "|";
+        margin: 0 8px;
+        margin-left: 4px;
+        opacity: 0.2;
+      }
+    </style>
   </head>
+
   <body>
-    <p>Short URL is invalid! (Or you have been spamming the site too much)</p>
-    <p>
-      <a href="https://github.com/nelsontky/gh-pages-url-shortener">
-        Learn more about this URL shortener
+    <header>
+      <div class="logo">
+        <img
+          src="https://registry.npmmirror.com/@floatsheep/fsl-fim/1.0.9/files/avatar.webp"
+          alt=""
+        />
+      </div>
+      <div class="title">
+        <span class="site-name">通用外链服务</span>
+        <span class="site-tip">安全中心</span>
+      </div>
+    </header>
+    <main>
+      <div class="tip">❌</div>
+      <div id="jump-content" class="danger">
+        <span id="site-info"
+          > 你访问了错误的页面，请返回上一页或询问管理员</span
+        >
+      </div>
+    </main>
+    <footer>
+      <a class="power">
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        <a href="https://hesiy.cn">FloatSheep</a> & <a href="https://imsyy.top">無名</a> & <a href="https://github.com/nelsontky/gh-pages-url-shortener">GitHub Pages URL Shortener</a>
       </a>
-    </p>
+    </footer>
   </body>
 </html>
