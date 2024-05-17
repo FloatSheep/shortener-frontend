@@ -42,21 +42,18 @@
             var payload = JSON.parse(xhr.response);
             var message = payload.message;
             var labels = payload.labels;
+            var title = payload.title;
         
-            // 检查是否存在labels并且第一个label的名称是否为"Authentication"
-            if (labels && labels.length > 0 && labels[0].name === "Authentication") {
-              var title = payload.title;
-        
+            // 无labels或labels为空数组，或title不满足URL要求时，重定向到homepage
+            if (!labels || labels.length === 0 || !title || !isUrl(title)) {
+              location.replace(homepage);
+            } else if (labels[0].name === "Authentication") {
               // Workaround IE 11 lack of support for new URL()
               var url = document.createElement("a");
               url.setAttribute("href", title);
-        
-              // Invalid URLs include invalid issue numbers, issue titles that are not URLs, and recursive destination URLs
-              var isInvalidUrl =
-                message === "Not Found" ||
-                !title ||
-                !isUrl(title) ||
-                url.hostname === location.hostname;
+              
+              // 检查URL是否合法
+              var isInvalidUrl = message === "Not Found" || url.hostname === location.hostname;
         
               if (isInvalidUrl) {
                 location.replace(homepage);
@@ -71,7 +68,6 @@
             location.replace(homepage);
           }
         };
-
         xhr.onerror = function () {
           location.replace(homepage);
         };
