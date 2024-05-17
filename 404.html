@@ -143,6 +143,9 @@
         margin-left: 4px;
         opacity: 0.2;
       }
+      .none {
+        display: none !important;
+      }
     </style>
   </head>
 
@@ -161,12 +164,12 @@
     </header>
     <main>
       <span class="tip">您即将通过通用外链服务，前往</span>
-      <span id="url"></span>
+      <span id="url" class="none"></span>
       <div id="jump-content" class="warn">
         <span id="site-info"
-          >⚠️ 该网址安全性未知，请注意您的帐号和财产安全</span
+          >正在获取链接...</span
         >
-        <div id="jump-button">继续前往</div>
+        <div id="jump-button" class="none">继续前往</div>
       </div>
     </main>
     <footer>
@@ -201,6 +204,8 @@
           jumpLink = payload.title;
           urlDom.innerHTML = jumpLink;
           urlTip.innerHTML = "✅ 该网址为信任网址，即将跳转";
+          jumpButton.classList = ``;
+          urlDom.classList = ``;
           jumpContent.className = "safe";
           jumpButton.addEventListener("click", () =>
             window.location.replace(jumpLink)
@@ -209,6 +214,7 @@
         } else {
           // 如果title不是合法URL，显示不允许跳转的消息
           urlDom.innerHTML = "Unknown link";
+          urlDom.classList = ``;
           urlTip.innerHTML = "❌ 链接未验证";
           jumpButton.remove();
         }
