@@ -41,23 +41,31 @@
           try {
             var payload = JSON.parse(xhr.response);
             var message = payload.message;
-            var title = payload.title;
-
-            // Workaround IE 11 lack of support for new URL()
-            var url = document.createElement("a");
-            url.setAttribute("href", title);
-
-            // Invalid URLs includes invalid issue numbers, issue titles that are not URLs, and recursive destination URLs
-            var isInvalidUrl =
-              message === "Not Found" ||
-              !title ||
-              !isUrl(title) ||
-              url.hostname === location.hostname;
-
-            if (isInvalidUrl) {
-              location.replace(homepage);
+            var labels = payload.labels;
+        
+            // 检查是否存在labels并且第一个label的名称是否为"Authentication"
+            if (labels && labels.length > 0 && labels[0].name === "Authentication") {
+              var title = payload.title;
+        
+              // Workaround IE 11 lack of support for new URL()
+              var url = document.createElement("a");
+              url.setAttribute("href", title);
+        
+              // Invalid URLs include invalid issue numbers, issue titles that are not URLs, and recursive destination URLs
+              var isInvalidUrl =
+                message === "Not Found" ||
+                !title ||
+                !isUrl(title) ||
+                url.hostname === location.hostname;
+        
+              if (isInvalidUrl) {
+                location.replace(homepage);
+              } else {
+                location.replace(title);
+              }
             } else {
-              location.replace(title);
+              // 如果label不是“Authentication”，输出错误信息
+              document.body.innerHTML = 'Links not allowed!';
             }
           } catch (e) {
             location.replace(homepage);
